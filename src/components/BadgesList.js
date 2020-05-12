@@ -25,6 +25,14 @@ export class BadgesListItem extends Component {
     
     class BadgesList extends React.Component {
       render() {
+        if (this.props.badges.length === 0){
+          return(
+            <div className="box">
+              <p>Not found Badges</p>
+              
+            </div>
+          )
+        }
         return (
           <div className="BadgesList">
             <ul className="list-unstyled">
