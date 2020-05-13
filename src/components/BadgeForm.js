@@ -11,7 +11,7 @@ export class BadgeForm extends Component {
         return (
             <React.Fragment>
                 <h1>New Attendant</h1>
-                <form>
+                <form onSubmit={this.props.onSubmit}>
                     <div className='form-group'>
                         <label>First Name</label>
                             <input 
@@ -55,7 +55,7 @@ export class BadgeForm extends Component {
                             />
                     </div>
                     
-                    <button type="button" onClick={this.handleClick} className="btn btn-primary">
+                    <button type="submit" className="btn btn-primary">
                         Save
                     </button>
                 </form>

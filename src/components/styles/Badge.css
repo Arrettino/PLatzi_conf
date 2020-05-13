@@ -49,3 +49,9 @@
     font-weight: bold;
     font-style: italic;
   }
+
+  .Badges__button {
+    text-align: start;
+    margin-top: 1.5rem;
+
+  }

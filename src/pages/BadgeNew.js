@@ -1,21 +1,31 @@
 import React from 'react'
+import api from '../api'
+import md5 from 'md5'
+import {Redirect,Link} from 'react-router-dom'
 //components
 import Badge from '../components/Badge'
 import BadgeForm from '../components/BadgeForm'
+import Loading from '../components/Loading'
+import Error from '../components/Error'
 //styles
 import './styles/BadgeNew.css'
 //images
-import header from '../images/badge-header.svg'
-import avatar from '../images/avatar.png'
+import header from '../images/platziconf-logo.svg'
+
 
 class BadgeNew extends React.Component{
-    state = { form:{
-        firstName:'',
-        lastName:'',
-        email:'',
-        jobTitle:'',
-        instagram:'',
-    } };
+    state = { 
+            form:{
+                firstName:'',
+                lastName:'',
+                email:'',
+                jobTitle:'',
+                instagram:'',
+                avatarUrl:'http://www.gravatar.com/avatar/?d=identicon',},
+            loading:false,
+            error:null,
+            redirec:false,
+    };
     handleChange = e => {
         //const nextForm = this.state.from;
         //nextForm[e.target.name] = e.target.value;
@@ -23,14 +33,37 @@ class BadgeNew extends React.Component{
             form: { //=nextForm
                 ...this.state.form,
                 [e.target.name]: e.target.value,
+                avatarUrl:`http://www.gravatar.com/avatar/${md5(this.state.form.email)}?d=identicon`
             },
         })
     }
+
+    handleSubmit= async e =>{
+        e.preventDefault()
+        this.setState({loading:true,error:null, redirec:false})
+        try{
+           await api.badges.create(this.state.form)
+           this.setState({loading:false ,redirec:true})
+        }
+        catch(error){
+            this.setState({loading:false ,error:error})
+        }
+
+    }
     render(){
+        if (this.state.loading === true){
+            return(<Loading/>)
+        }
+        if (this.state.error){
+            return(<Error/>)
+        }
+        if (this.state.redirec === true){
+            return(<Redirect to='/badges'/>)
+        }
         return(
             <React.Fragment>
                 <div className="BadgeNew__hero">
-                    <img className="img-fluid" src={header} alt=""/>
+                    <img className="BadgeNew__hero-image" src={header} alt=""/>
                 </div>
                 <div className='container'>
                     <div className='row'>
@@ -38,9 +71,10 @@ class BadgeNew extends React.Component{
                             <Badge 
                                 firstName={this.state.form.firstName}
                                 lastName={this.state.form.lastName} 
-                                avatar={avatar} 
+                                email={this.state.form.email}
                                 instagram={this.state.form.instagram}  
                                 jobTitle={this.state.form.jobTitle}
+                                avatarUrl={this.state.form.avatarUrl}
                             />
                             {/* esto es un comentario*/}
                         </div>
@@ -48,9 +82,10 @@ class BadgeNew extends React.Component{
                             <BadgeForm 
                                 onChange={this.handleChange} 
                                 formValues={this.state.form}
+                                onSubmit={this.handleSubmit}
                             />
                         </div>
-                    </div>
+                    </div> 
                 </div>
             </React.Fragment>
         )

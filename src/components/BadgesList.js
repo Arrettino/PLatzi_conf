@@ -14,7 +14,7 @@ export class BadgesListItem extends Component {
               <strong>
                 {this.props.badge.firstName} {this.props.badge.lastName}
               </strong>
-              <br />@{this.props.badge.twitter}
+              <br />@{this.props.badge.instagram}
               <br />
               {this.props.badge.jobTitle}
             </div>
