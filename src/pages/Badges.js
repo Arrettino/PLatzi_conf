@@ -20,6 +20,10 @@ export class Badges extends React.Component {
 
         componentDidMount(){
           this.fetchData()
+          this.intervalId=setInterval(this.fetchData , 5000)
+        }
+        componentWillUnmount(){
+          clearInterval(this.intervalId)
         }
 
         fetchData= async () => {
@@ -34,7 +38,7 @@ export class Badges extends React.Component {
         }
 
       render() {
-        if (this.state.loading === true){
+        if (this.state.loading === true && !this.state.data){
           return(
           <React.Fragment>
             <Loading/>
