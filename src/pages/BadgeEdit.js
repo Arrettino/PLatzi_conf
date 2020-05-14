@@ -91,6 +91,11 @@ class BadgeEdit extends React.Component{
                                 jobTitle={this.state.form.jobTitle}
                                 avatarUrl={this.state.form.avatarUrl}
                             />
+                            <div className="Badges__button">
+                                <Link to={`/Badges/${this.props.match.params.BadgeId}`} className='btn btn-primary'>
+                                    Return Badge
+                                </Link>
+                            </div>
                             {/* esto es un comentario*/}
                         </div>
                         <div className='col-6'>

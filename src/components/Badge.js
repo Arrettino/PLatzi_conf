@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import './styles/Badge.css'
 import ConfLogo from '../images/badge-header.svg'
+import instaLogo from '../images/instaLogo.svg' 
 
 
 class Badge extends React.Component {
@@ -19,17 +20,13 @@ class Badge extends React.Component {
 
                     <div className="Badge__section-info">
                         <p>{this.props.jobTitle}</p>
-                        <p>@{this.props.instagram}</p>
+                        <p><img src={instaLogo} height="25px" alt="instagram logo"/> @{this.props.instagram}</p>
                     </div>
                     <div className="Badge__footer">
                         <p>platziconf</p>
                     </div>
                 </div>
-                <div className="Badges__button">
-                        <Link to="/badges" className='btn btn-primary'>
-                            View Badges
-                        </Link>
-                    </div>
+
             </React.Fragment>
         )
     }

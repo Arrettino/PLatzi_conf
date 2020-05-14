@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './styles/BadgesList.css'
 import { Link } from 'react-router-dom';
+import instaLogo from '../images/instaLogo.svg' 
 export class BadgesListItem extends Component {
     render() {
         return (
@@ -14,7 +15,7 @@ export class BadgesListItem extends Component {
               <strong>
                 {this.props.badge.firstName} {this.props.badge.lastName}
               </strong>
-              <br />@{this.props.badge.instagram}
+              <br /><img src={instaLogo} height="20px" alt="instagram logo"/> @{this.props.badge.instagram}
               <br />
               {this.props.badge.jobTitle}
             </div>
@@ -39,7 +40,7 @@ export class BadgesListItem extends Component {
               {this.props.badges.map(badge => {
                 return (
                   <li key={badge.id}>
-                    <Link to={`/Badges/${badge.id}/edit`}>
+                    <Link to={`/Badges/${badge.id}`}>
                       <BadgesListItem badge={badge} />
                     </Link>
                   </li>

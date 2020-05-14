@@ -12,6 +12,9 @@
   text-decoration: none;
   color: black;
 }
+.BadgesList a:hover{
+  text-decoration: none;
+}  
 a:hover .BadgesListItem{
   text-decoration: none;
   box-shadow: inset 0px 0px 5px 5px rgba(128,128,128,0.36);

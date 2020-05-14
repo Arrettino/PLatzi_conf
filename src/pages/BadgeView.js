@@ -8,12 +8,12 @@ import BadgeForm from '../components/BadgeForm'
 import Loading from '../components/Loading'
 import Error from '../components/Error'
 //styles
-import './styles/BadgeNew.css'
+import './styles/BadgeView.css'
 //images
 import header from '../images/platziconf-logo.svg'
 
 
-class BadgeNew extends React.Component{
+class BadgeView extends React.Component{
     state = { 
             form:{
                 firstName:'',
@@ -22,9 +22,25 @@ class BadgeNew extends React.Component{
                 jobTitle:'',
                 instagram:'',
                 avatarUrl:'http://www.gravatar.com/avatar/?d=identicon',},
-            loading:false,
+            loading:true,
             error:null,
     };
+    
+    componentDidMount(){
+        this.fetchData()
+    }
+    
+    fetchData= async e=>{
+        this.setState({loading:true,error:null})
+        try{
+            const data = await api.badges.read(this.props.match.params.BadgeId)
+            this.setState({loading:false, form:data})
+        }
+        catch(error){
+            this.setState({loading:false,error:error})
+        }
+
+    }
     handleChange = e => {
         //const nextForm = this.state.from;
         //nextForm[e.target.name] = e.target.value;
@@ -37,19 +53,6 @@ class BadgeNew extends React.Component{
         })
     }
 
-    handleSubmit= async e =>{
-        e.preventDefault()
-        this.setState({loading:true,error:null, redirec:false})
-        try{
-           await api.badges.create(this.state.form)
-           this.setState({loading:false})
-           this.props.history.push('/badges')
-        }
-        catch(error){
-            this.setState({loading:false ,error:error})
-        }
-
-    }
     render(){
         if (this.state.loading === true){
             return(<Loading/>)
@@ -59,8 +62,8 @@ class BadgeNew extends React.Component{
         }
         return(
             <React.Fragment>
-                <div className="BadgeNew__hero">
-                    <img className="BadgeNew__hero-image" src={header} alt=""/>
+                <div className="BadgeEdit__hero">
+                    <img className="BadgeEdit__hero-image" src={header} alt=""/>
                 </div>
                 <div className='container'>
                     <div className='row'>
@@ -81,12 +84,15 @@ class BadgeNew extends React.Component{
                             {/* esto es un comentario*/}
                         </div>
                         <div className='col-6'>
-                            <h1>New Attendant</h1>
-                            <BadgeForm 
-                                onChange={this.handleChange} 
-                                formValues={this.state.form}
-                                onSubmit={this.handleSubmit}
-                            />
+                            <div className="container__options">
+                                <div className="options">
+                                    <h2>Actions:</h2>
+                                    <Link to={`/Badges/${this.props.match.params.BadgeId}/edit`} className="edit-button">
+                                            Edit
+                                    </Link>
+                                    <button className="delete-button">Delete</button>
+                                </div>
+                            </div>
                         </div>
                     </div> 
                 </div>
@@ -95,4 +101,4 @@ class BadgeNew extends React.Component{
 }
 }
 
-export default BadgeNew
+export default BadgeView
