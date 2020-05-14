@@ -1,16 +1,17 @@
 import React from 'react'
 import api from '../api'
 import md5 from 'md5'
-import {Redirect,Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 //components
 import Badge from '../components/Badge'
-import BadgeForm from '../components/BadgeForm'
 import Loading from '../components/Loading'
 import Error from '../components/Error'
+import DeleteBadgeModal from '../components/DeleteBadgeModal'
 //styles
 import './styles/BadgeView.css'
 //images
 import header from '../images/platziconf-logo.svg'
+
 
 
 class BadgeView extends React.Component{
@@ -24,7 +25,8 @@ class BadgeView extends React.Component{
                 avatarUrl:'http://www.gravatar.com/avatar/?d=identicon',},
             loading:true,
             error:null,
-    };
+            isOpen:false,    
+        };
     
     componentDidMount(){
         this.fetchData()
@@ -41,16 +43,19 @@ class BadgeView extends React.Component{
         }
 
     }
-    handleChange = e => {
-        //const nextForm = this.state.from;
-        //nextForm[e.target.name] = e.target.value;
-        this.setState({
-            form: { //=nextForm
-                ...this.state.form,
-                [e.target.name]: e.target.value,
-                avatarUrl:`http://www.gravatar.com/avatar/${md5(this.state.form.email)}?d=identicon`
-            },
-        })
+    activate_isOpen= e =>this.setState({isOpen:true})
+    onClose= e=>this.setState({isOpen:false})
+    
+    onDeleteBadge= async e=>{
+        this.setState({loading:true,error:null})
+        try{
+            const data=await api.badges.remove(this.props.match.params.BadgeId)
+            this.setState({loading:false})
+            this.props.history.push('/badges')
+
+        }catch(error){
+            this.setState({loading:false,error:error})
+        }
     }
 
     render(){
@@ -58,6 +63,7 @@ class BadgeView extends React.Component{
             return(<Loading/>)
         }
         if (this.state.error){
+
             return(<Error/>)
         }
         return(
@@ -87,10 +93,13 @@ class BadgeView extends React.Component{
                             <div className="container__options">
                                 <div className="options">
                                     <h2>Actions:</h2>
-                                    <Link to={`/Badges/${this.props.match.params.BadgeId}/edit`} className="edit-button">
-                                            Edit
-                                    </Link>
-                                    <button className="delete-button">Delete</button>
+                                        <Link to={`/Badges/${this.props.match.params.BadgeId}/edit`} className="btn btn-primary mb-4">
+                                                Edit
+                                        </Link>
+                                    <div>
+                                        <button onClick={this.activate_isOpen} className="btn btn-danger">Delete</button>
+                                        <DeleteBadgeModal onDeleteBadge={this.onDeleteBadge} onClose={this.onClose} isOpen={this.state.isOpen}/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
