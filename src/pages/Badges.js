@@ -8,51 +8,14 @@ import Error from '../components/Error'
 import './styles/Badges.css'
 //images
 import hero from '../images/badge-header.svg'
-import api from '../api'
 //rce para esqueleto de nueva pagina / componente
-export class Badges extends React.Component {
-        state = {
-          data: undefined,
-          error:null,
-          loading:true,
-        }
+function Badges(props){
 
-        componentDidMount(){
-          this.fetchData()
-          this.intervalId=setInterval(this.fetchData , 5000)
+        if (props.loading === true && !props.data){
+          return(<Loading/>)
         }
-        componentWillUnmount(){
-          clearInterval(this.intervalId)
-        }
-
-        fetchData= async () => {
-          this.setState({loading:true,error:null})
-          
-          try{
-            const data = await api.badges.list()
-            this.setState({loading:false,data:data})
-          }catch(error){
-            this.setState({loading:false,error:error})
-          }
-        }
-
-        filter= e =>{
-          this.setState({filter:e})
-        }
-
-      render() {
-        if (this.state.loading === true && !this.state.data){
-          return(
-          <React.Fragment>
-            <Loading/>
-          </React.Fragment>)
-        }
-        if (this.state.error){
-          return(
-            <React.Fragment>
-              <Error/>
-            </React.Fragment>
-          )
+        if (props.error){
+          return(<Error/>)
         }
         return (
             <React.Fragment>
@@ -71,13 +34,13 @@ export class Badges extends React.Component {
                                 </Link>
                             </div>
                             <div className="Badges__container">
-                            <BadgesList badges={this.state.data} />   
+                              <BadgesList badges={props.data}/>   
                             </div>
                         </div>
                     </div>
                 </React.Fragment>
         )
     }
-}
+
 
 export default Badges

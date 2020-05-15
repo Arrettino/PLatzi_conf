@@ -1,9 +1,9 @@
 import React from 'react'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
-import Badges from '../pages/Badges'
-import BadgeNew from '../pages/BadgeNew'
-import BadgeEdit from '../pages/BadgeEdit'
-import BadgeView from '../pages/BadgeView'
+import BadgeEditContainer from '../pages/BadgeEditContainer'
+import BadgeNewContainer from '../pages/BadgeNewContainer'
+import BadgeViewContainer from '../pages/BadgeViewContainer'
+import BadgesContainer from '../pages/BadgesContainer'
 import Layout from './Layout'
 import Home from '../pages/Home'
 import NotFound from '../pages/NotFound'
@@ -15,10 +15,10 @@ function App(){
                 <Layout>
                     <Switch>
                         <Route exact path='/' component={Home}/>    
-                        <Route exact path='/badges' component={Badges}/>
-                        <Route exact path='/badges/new' component={BadgeNew}/>
-                        <Route exact path='/badges/:BadgeId' component={BadgeView}/>
-                        <Route exact path='/badges/:BadgeId/edit' component={BadgeEdit}/>
+                        <Route exact path='/badges' component={BadgesContainer}/>
+                        <Route exact path='/badges/new' component={BadgeNewContainer}/>
+                        <Route exact path='/badges/:BadgeId' component={BadgeViewContainer}/>
+                        <Route exact path='/badges/:BadgeId/edit' component={BadgeEditContainer}/>
                         <Route component={NotFound}/>
                     </Switch>
                 </Layout>

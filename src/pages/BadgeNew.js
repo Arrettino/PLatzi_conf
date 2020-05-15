@@ -1,7 +1,5 @@
 import React from 'react'
-import api from '../api'
-import md5 from 'md5'
-import {Redirect,Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 //components
 import Badge from '../components/Badge'
 import BadgeForm from '../components/BadgeForm'
@@ -13,86 +11,52 @@ import './styles/BadgeNew.css'
 import header from '../images/platziconf-logo.svg'
 
 
-class BadgeNew extends React.Component{
-    state = { 
-            form:{
-                firstName:'',
-                lastName:'',
-                email:'',
-                jobTitle:'',
-                instagram:'',
-                avatarUrl:'http://www.gravatar.com/avatar/?d=identicon',},
-            loading:false,
-            error:null,
-    };
-    handleChange = e => {
-        //const nextForm = this.state.from;
-        //nextForm[e.target.name] = e.target.value;
-        this.setState({
-            form: { //=nextForm
-                ...this.state.form,
-                [e.target.name]: e.target.value,
-                avatarUrl:`http://www.gravatar.com/avatar/${md5(this.state.form.email)}?d=identicon`
-            },
-        })
-    }
-
-    handleSubmit= async e =>{
-        e.preventDefault()
-        this.setState({loading:true,error:null, redirec:false})
-        try{
-           await api.badges.create(this.state.form)
-           this.setState({loading:false})
-           this.props.history.push('/badges')
-        }
-        catch(error){
-            this.setState({loading:false ,error:error})
-        }
-
-    }
-    render(){
-        if (this.state.loading === true){
+function BadgeNew (props){
+        
+    if (props.loading === true){
             return(<Loading/>)
         }
-        if (this.state.error){
-            return(<Error/>)
-        }
-        return(
-            <React.Fragment>
-                <div className="BadgeNew__hero">
-                    <img className="BadgeNew__hero-image" src={header} alt=""/>
-                </div>
-                <div className='container'>
-                    <div className='row'>
-                        <div className='col-6'>
-                            <Badge 
-                                firstName={this.state.form.firstName}
-                                lastName={this.state.form.lastName} 
-                                email={this.state.form.email}
-                                instagram={this.state.form.instagram}  
-                                jobTitle={this.state.form.jobTitle}
-                                avatarUrl={this.state.form.avatarUrl}
-                            />
-                            <div className="Badges__button">
-                                <Link to="/badges" className='btn btn-primary'>
-                                    Badges List
-                                </Link>
-                            </div>
-                            {/* esto es un comentario*/}
+        
+    if (props.error){
+        return(<Error/>)
+    }
+    
+    return(
+        <React.Fragment>
+            <div className="BadgeNew__hero">
+                <img className="BadgeNew__hero-image" src={header} alt=""/>
+            </div>
+            <div className='container'>
+                <div className="row">
+                    <div className='col-6'>
+                        <Badge 
+                            firstName={props.firstName}
+                            lastName={props.lastName} 
+                            email={props.email}
+                            instagram={props.instagram}  
+                            jobTitle={props.jobTitle}
+                            avatarUrl={props.avatarUrl}
+                        />
+                        <div className="Badges__button">
+                            <Link to="/badges" className='btn btn-primary'>
+                                Badges List
+                            </Link>
                         </div>
-                        <div className='col-6'>
-                            <h1>New Attendant</h1>
-                            <BadgeForm 
-                                onChange={this.handleChange} 
-                                formValues={this.state.form}
-                                onSubmit={this.handleSubmit}
-                            />
-                        </div>
-                    </div> 
-                </div>
-            </React.Fragment>
+                        {/* esto es un comentario*/}
+                    </div>
+                    <div className='col-6'>
+                        <h1>New Attendant</h1>
+                        <BadgeForm 
+                            onChange={props.onChange} 
+                            formValues={props.formValues}
+                            onSubmit={props.onSubmit}
+                        />
+                    </div>
+                </div> 
+            </div>
+        </React.Fragment>
         )
 }
-}
+
 
 export default BadgeNew

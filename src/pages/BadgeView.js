@@ -1,6 +1,4 @@
 import React from 'react'
-import api from '../api'
-import md5 from 'md5'
 import {Link} from 'react-router-dom'
 //components
 import Badge from '../components/Badge'
@@ -14,55 +12,12 @@ import header from '../images/platziconf-logo.svg'
 
 
 
-class BadgeView extends React.Component{
-    state = { 
-            form:{
-                firstName:'',
-                lastName:'',
-                email:'',
-                jobTitle:'',
-                instagram:'',
-                avatarUrl:'http://www.gravatar.com/avatar/?d=identicon',},
-            loading:true,
-            error:null,
-            isOpen:false,    
-        };
-    
-    componentDidMount(){
-        this.fetchData()
-    }
-    
-    fetchData= async e=>{
-        this.setState({loading:true,error:null})
-        try{
-            const data = await api.badges.read(this.props.match.params.BadgeId)
-            this.setState({loading:false, form:data})
-        }
-        catch(error){
-            this.setState({loading:false,error:error})
-        }
+function BadgeView(props){
 
-    }
-    activate_isOpen= e =>this.setState({isOpen:true})
-    onClose= e=>this.setState({isOpen:false})
-    
-    onDeleteBadge= async e=>{
-        this.setState({loading:true,error:null})
-        try{
-            const data=await api.badges.remove(this.props.match.params.BadgeId)
-            this.setState({loading:false})
-            this.props.history.push('/badges')
-
-        }catch(error){
-            this.setState({loading:false,error:error})
-        }
-    }
-
-    render(){
-        if (this.state.loading === true){
+        if (props.loading === true){
             return(<Loading/>)
         }
-        if (this.state.error){
+        if (props.error){
 
             return(<Error/>)
         }
@@ -75,12 +30,12 @@ class BadgeView extends React.Component{
                     <div className='row'>
                         <div className='col-6'>
                             <Badge 
-                                firstName={this.state.form.firstName}
-                                lastName={this.state.form.lastName} 
-                                email={this.state.form.email}
-                                instagram={this.state.form.instagram}  
-                                jobTitle={this.state.form.jobTitle}
-                                avatarUrl={this.state.form.avatarUrl}
+                                firstName={props.firstName}
+                                lastName={props.lastName} 
+                                email={props.email}
+                                instagram={props.instagram}  
+                                jobTitle={props.jobTitle}
+                                avatarUrl={props.avatarUrl}
                             />
                             <div className="Badges__button">
                                 <Link to="/badges" className='btn btn-primary'>
@@ -93,12 +48,12 @@ class BadgeView extends React.Component{
                             <div className="container__options">
                                 <div className="options">
                                     <h2>Actions:</h2>
-                                        <Link to={`/Badges/${this.props.match.params.BadgeId}/edit`} className="btn btn-primary mb-4">
+                                        <Link to={`/Badges/${props.BadgeId}/edit`} className="btn btn-primary mb-4">
                                                 Edit
                                         </Link>
                                     <div>
-                                        <button onClick={this.activate_isOpen} className="btn btn-danger">Delete</button>
-                                        <DeleteBadgeModal onDeleteBadge={this.onDeleteBadge} onClose={this.onClose} isOpen={this.state.isOpen}/>
+                                        <button onClick={props.activate_isOpen} className="btn btn-danger">Delete</button>
+                                        <DeleteBadgeModal onDeleteBadge={props.onDeleteBadge} onClose={props.onClose} isOpen={props.isOpen}/>
                                     </div>
                                 </div>
                             </div>
@@ -108,6 +63,6 @@ class BadgeView extends React.Component{
             </React.Fragment>
         )
 }
-}
+
 
 export default BadgeView
