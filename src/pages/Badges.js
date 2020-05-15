@@ -15,7 +15,6 @@ export class Badges extends React.Component {
           data: undefined,
           error:null,
           loading:true,
-
         }
 
         componentDidMount(){
@@ -35,6 +34,10 @@ export class Badges extends React.Component {
           }catch(error){
             this.setState({loading:false,error:error})
           }
+        }
+
+        filter= e =>{
+          this.setState({filter:e})
         }
 
       render() {
