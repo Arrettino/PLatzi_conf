@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import api from '../api'
-import md5 from 'md5'
 import BadgeView from './BadgeView';
 
 export class BadgeViewContainer extends Component {
@@ -38,7 +37,7 @@ export class BadgeViewContainer extends Component {
     onDeleteBadge= async e=>{
         this.setState({loading:true,error:null})
         try{
-            const data=await api.badges.remove(this.props.match.params.BadgeId)
+            await api.badges.remove(this.props.match.params.BadgeId)
             this.setState({loading:false})
             this.props.history.push('/badges')
 

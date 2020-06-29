@@ -1,11 +1,10 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React,{Component} from 'react'
 import './styles/Badge.css'
 import ConfLogo from '../images/badge-header.svg'
 import instaLogo from '../images/instaLogo.svg' 
 
 
-class Badge extends React.Component {
+class Badge extends Component {
     render(){
         return (
             <React.Fragment>

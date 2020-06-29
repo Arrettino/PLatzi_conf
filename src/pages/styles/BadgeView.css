@@ -15,7 +15,6 @@
   .container__options{
     height: 70%;
     width: 100%;
-    justify-content: start;
     align-items: center;
     display: flex;
   }
