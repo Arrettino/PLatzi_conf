@@ -4,7 +4,7 @@
   "description": "Conference list invitation manager",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "nodemon -r dotenv/config server.js",
     "start": "NODE_ENV=production node server"
   },
   "repository": {
@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/Arrettino/PLatzi_conf#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.5.9"
   },
   "devDependencies": {
     "cors": "^2.8.5",
