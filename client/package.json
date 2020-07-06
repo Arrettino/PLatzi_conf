@@ -2,11 +2,9 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "author": "Ruben Pablo Arrettino",
   "scripts": {
-    "start": "npm-run-all -p client server",
-    "client": "react-scripts start",
-    "server": "json-server --port 3001 --watch server/db.json",
-    "seed": "node server/seed.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -20,7 +18,6 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "2.1.5"
   },
-  "devDependencies": {},
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -30,14 +27,9 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Arrettino/Platzi.conf.git"
   },
-  "author": "Ruben Pablo Arrettino",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Arrettino/Platzi.conf/issues"
-  }
+  "license": "MIT"
 }
