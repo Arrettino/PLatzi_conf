@@ -1,5 +1,6 @@
 const express = require("express");
 const database = require("./database");
+const bodyParser = require("body-parser")
 
 async function proxy(app){
     const router = express.Router();
@@ -13,8 +14,10 @@ async function proxy(app){
             console.log(e)
         }
     })
-    router.post("/badge",(req,res,next)=>{
-        res.send("hola")
+    router.post("/badge",async (req,res,next)=>{
+        const data = req.body
+        let p = await database("write",data)
+        res.send(p)
     })
 }
 

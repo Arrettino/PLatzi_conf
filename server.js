@@ -1,6 +1,9 @@
 const http = require("http");
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser")
+app.use(bodyParser.json()); // body en formato json
+app.use(bodyParser.urlencoded({ extended: false }));
 const server = http.createServer(app);
 const path = require("path");
 const proxy = require("./proxy");

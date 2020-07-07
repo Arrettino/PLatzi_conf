@@ -10,9 +10,15 @@ async function database(crud, data) {
     console.log("Connected correctly to server");
     const db = client.db(dbName);
     const col = db.collection("badges");
-    const myDoc =await col.find({}).toArray()
-    console.log(myDoc)
-    return(myDoc)
+    switch(crud){
+      case"read":
+      const badges =await col.find({}).toArray()
+      return(badges)
+      case"write":
+      const p = await col.insertOne(data);
+      return(p)
+    }
+    
 
   } catch (err) {
     console.log(err.stack);
