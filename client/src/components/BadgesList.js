@@ -5,6 +5,7 @@ import instaLogo from '../images/instaLogo.svg'
 export class BadgesListItem extends Component {
     render() {
         return (
+          <Link to={`/badge/${this.props.badge._id}`}>
           <div className="BadgesListItem">
             <img
               className="BadgesListItem__avatar"
@@ -20,6 +21,7 @@ export class BadgesListItem extends Component {
               {this.props.badge.jobTitle}
             </div>
           </div>
+          </Link>
         );
       }
     }
@@ -68,11 +70,10 @@ export class BadgesListItem extends Component {
             </div>
             <ul className="list-unstyled">
               {filteredBadges.map(badge => {
+                console.log(`${badge._id}`)
                 return (
-                  <li key={badge.id}>
-                    <Link to={`/Badges/${badge.id}`}>
+                  <li key={badge}>
                       <BadgesListItem badge={badge} />
-                    </Link>
                   </li>
                 );
               })}

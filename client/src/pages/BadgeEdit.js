@@ -35,7 +35,7 @@ function BadgeEdit(props){
                             avatarUrl={props.avatarUrl}
                         />
                         <div className="Badges__button">
-                            <Link to={`/Badges/${props.BadgeId}`} className='btn btn-primary'>
+                            <Link to={`/badge/${props.BadgeId}`} className='btn btn-primary'>
                                 Return Badge
                             </Link>
                         </div>

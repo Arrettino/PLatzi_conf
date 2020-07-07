@@ -26,6 +26,7 @@ export class BadgesContainer extends Component {
       const data = await api.badges.list();
       this.setState({ loading: false, data: data });
     } catch (error) {
+      clearInterval(this.intervalId);
       this.setState({ loading: false, error: error });
     }
   };

@@ -48,7 +48,7 @@ function BadgeView(props){
                             <div className="container__options">
                                 <div className="options">
                                     <h2>Actions:</h2>
-                                        <Link to={`/Badges/${props.BadgeId}/edit`} className="btn btn-primary mb-4">
+                                        <Link to={`/badge/${props.BadgeId}/edit`} className="btn btn-primary mb-4">
                                                 Edit
                                         </Link>
                                     <div>

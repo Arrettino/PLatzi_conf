@@ -17,8 +17,8 @@ function App(){
                         <Route exact path='/' component={Home}/>    
                         <Route exact path='/badges' component={BadgesContainer}/>
                         <Route exact path='/badges/new' component={BadgeNewContainer}/>
-                        <Route exact path='/badges/:BadgeId' component={BadgeViewContainer}/>
-                        <Route exact path='/badges/:BadgeId/edit' component={BadgeEditContainer}/>
+                        <Route exact path='/badge/:BadgeId' component={BadgeViewContainer}/>
+                        <Route exact path='/badge/:BadgeId/edit' component={BadgeEditContainer}/>
                         <Route component={NotFound}/>
                     </Switch>
                 </Layout>
